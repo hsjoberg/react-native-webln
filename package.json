@@ -1,0 +1,25 @@
+{
+  "name": "react-native-webln",
+  "description": "Library for supporting WebLN in a WebView",
+  "version": "0.1.2",
+  "main": "dist/index",
+  "scripts": {
+    "build": "cd injection && tsc && cd .. && echo \"export default \\`$(cat injection/inject.js)\\`\" > lib/inject-txt.ts && rm injection/inject.js && tsc"
+  },
+  "author": "Hampus Sjöberg",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/react": "^16.9.21",
+    "@types/react-native": "^0.61.16",
+    "react-native-webview": "^8.1.1",
+    "typescript": "^3.7.5",
+    "webln": "^0.2.2"
+  },
+  "keywords": ["webln", "bitcoin", "lightning", "lnd", "webview"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hsjoberg/react-native-webln.git",
+    "baseUrl": "https://github.com/hsjoberg/react-native-webln"
+  }
+}
