@@ -48,7 +48,7 @@ const WebLNBrowser = () => {
           setJsInjected(true);
         }
       }}
-      onMessage={postMessageHandler(webview, {
+      onMessage={onMessageHandler(webview, {
         enable: async () => { /* Your implementation goes here */ },
         getInfo: async () => { /* Your implementation goes here */ },
         makeInvoice: async (args) => { /* Your implementation goes here */ },

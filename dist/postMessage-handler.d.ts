@@ -9,5 +9,5 @@ export interface PostMessage {
 export interface WebLNProviderWithExtras extends WebLNProvider {
     foundInvoice?: (paymentRequestStr: string) => Promise<void>;
 }
-declare const postMessageHandler: (webview: MutableRefObject<WebView>, requests: WebLNProviderWithExtras) => (event: WebViewMessageEvent) => Promise<void>;
-export { postMessageHandler, };
+declare const onMessageHandler: (webview: MutableRefObject<WebView>, requests: WebLNProviderWithExtras) => (event: WebViewMessageEvent) => Promise<void>;
+export { onMessageHandler, };

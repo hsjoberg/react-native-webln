@@ -11,7 +11,7 @@ export interface WebLNProviderWithExtras extends WebLNProvider {
   foundInvoice?: (paymentRequestStr: string) => Promise<void>;
 }
 
-const postMessageHandler = (webview: MutableRefObject<WebView>, requests: WebLNProviderWithExtras) => async (event: WebViewMessageEvent) => {
+const onMessageHandler = (webview: MutableRefObject<WebView>, requests: WebLNProviderWithExtras) => async (event: WebViewMessageEvent) => {
   if (!webview.current) {
     console.error(
       "react-native-webln: Reference to webview is not properly set.\n" +
@@ -94,5 +94,5 @@ const injectResponseToWebView = (webview: WebView, id: number, inject: string | 
 }
 
 export {
-  postMessageHandler,
+  onMessageHandler,
 }

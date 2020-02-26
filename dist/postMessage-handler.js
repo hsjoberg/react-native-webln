@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const postMessageHandler = (webview, requests) => async (event) => {
+const onMessageHandler = (webview, requests) => async (event) => {
     if (!webview.current) {
         console.error("react-native-webln: Reference to webview is not properly set.\n" +
             "postMessageHandler needs to have a ref to webview in other to work");
@@ -63,7 +63,7 @@ const postMessageHandler = (webview, requests) => async (event) => {
         }
     }
 };
-exports.postMessageHandler = postMessageHandler;
+exports.onMessageHandler = onMessageHandler;
 const injectResponseToWebView = (webview, id, inject) => {
     console.log("inject");
     webview.injectJavaScript(`document.dispatchEvent(
