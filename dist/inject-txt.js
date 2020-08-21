@@ -5,51 +5,45 @@ exports.default = `(() => {
     if (!window.ReactNativeWebView) {
         return;
     }
-    window.WebLN = window.WebLN || {};
     const WebLNPromiseCallback = {};
     const timeout = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
     let requestId = 0;
     let weblnEnabled = false;
-    window.WebLN.requestProvider = (async () => {
-        if (weblnEnabled) {
-            return window.WebLN;
-        }
-        const webln = {
-            enable: async () => { return; },
-            getInfo: async () => {
-                return await postMessage({
-                    type: "getInfo",
-                    data: null,
-                });
-            },
-            makeInvoice: async (args) => {
-                const result = await postMessage({
-                    type: "makeInvoice",
-                    data: args,
-                });
-                checkedInvoices.push(("lightning:" + result.paymentRequest).toUpperCase());
-                return result;
-            },
-            sendPayment: async (paymentRequest) => {
-                return await postMessage({
-                    type: "sendPayment",
-                    data: paymentRequest,
-                });
-            },
-            signMessage: async () => {
-                return {
-                    message: "",
-                    signature: "",
-                };
-            },
-            verifyMessage: async () => {
-                return;
-            },
-        };
-        window.WebLN = { ...window.WebLN, ...webln };
-        weblnEnabled = true;
-        return webln;
-    });
+    window.webln = {
+        enable: async () => {
+            weblnEnabled = true;
+            return;
+        },
+        getInfo: async () => {
+            return await postMessage({
+                type: "getInfo",
+                data: null,
+            });
+        },
+        makeInvoice: async (args) => {
+            const result = await postMessage({
+                type: "makeInvoice",
+                data: args,
+            });
+            checkedInvoices.push(("lightning:" + result.paymentRequest).toUpperCase());
+            return result;
+        },
+        sendPayment: async (paymentRequest) => {
+            return await postMessage({
+                type: "sendPayment",
+                data: paymentRequest,
+            });
+        },
+        signMessage: async () => {
+            return {
+                message: "",
+                signature: "",
+            };
+        },
+        verifyMessage: async () => {
+            return;
+        },
+    };
     const postMessage = async (message, waitForCallback = true) => {
         const currentId = requestId++;
         window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -81,11 +75,11 @@ exports.default = `(() => {
                 if (aTag.href &&
                     aTag.href.toUpperCase().startsWith("LIGHTNING:") &&
                     aTag.href.length > "LIGHTNING:".length) {
-                    debug("Found: " + aTag.href);
                     const invoice = aTag.href.toUpperCase().replace("LIGHTNING:", "");
                     if (checkedInvoices.includes(invoice)) {
                         return;
                     }
+                    debug("Found: " + aTag.href);
                     checkedInvoices.push(invoice);
                     await postMessage({
                         type: "nonwebln_foundInvoice",
@@ -100,7 +94,7 @@ exports.default = `(() => {
                 clearInterval(check);
             }
             checkATags();
-        }, 1250);
+        }, 900);
     }
     const debug = async (message) => {
         if (window.reactNativeWebLNDebug) {

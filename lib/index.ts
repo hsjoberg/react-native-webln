@@ -8,8 +8,8 @@ export interface InjectJsOptions {
 }
 export const injectJs = (options: InjectJsOptions = { debug: false, checkTags: true }) => {
   const pre =
-    `window.reactNativeWebLNDebug = ${!!options.debug};
-     window.reactNativeWebLNCheckTags = ${!!options.checkTags};`;
+    `window.reactNativeWebLNDebug = ${options.debug ?? false};
+     window.reactNativeWebLNCheckTags = ${options.checkTags ?? true};`;
 
   return pre + WebviewInjection;
 }
