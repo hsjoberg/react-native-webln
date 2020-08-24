@@ -37,7 +37,10 @@ interface PostMessage {
   let weblnEnabled = false;
   window.webln = {
     enable: async () => {
-      weblnEnabled = true;
+      // tippin's WebLN implementation is broken
+      if (document.domain !== "tippin.me") {
+        weblnEnabled = true;
+      }
       return;
     },
     getInfo: async () => {
