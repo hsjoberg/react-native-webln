@@ -1,10 +1,11 @@
 {
   "name": "react-native-webln",
   "description": "Library for supporting WebLN in a WebView",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "dist/index",
   "scripts": {
-    "build": "cd injection && tsc && cd .. && echo \"export default \\`$(cat injection/inject.js)\\`\" > lib/inject-txt.ts && rm injection/inject.js && tsc"
+    "build": "cd injection && tsc && cd .. && echo \"export default \\`$(cat injection/inject.js)\\`\" > lib/inject-txt.ts && rm injection/inject.js && tsc",
+    "publish-npm": "yarn build && yarn publish"
   },
   "author": "Hampus Sjöberg",
   "license": "MIT",
