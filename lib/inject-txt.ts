@@ -9,7 +9,9 @@ export default `(() => {
     let weblnEnabled = false;
     window.webln = {
         enable: async () => {
-            weblnEnabled = true;
+            if (document.domain !== "tippin.me") {
+                weblnEnabled = true;
+            }
             return;
         },
         getInfo: async () => {
@@ -65,9 +67,6 @@ export default `(() => {
     const checkedInvoices = [];
     if (window.reactNativeWebLNCheckTags) {
         const checkATags = async () => {
-            if (weblnEnabled) {
-                return;
-            }
             const aTags = document.querySelectorAll("a");
             for (const aTag of aTags) {
                 if (aTag.href &&
@@ -75,6 +74,9 @@ export default `(() => {
                     aTag.href.length > "LIGHTNING:".length) {
                     const invoice = aTag.href.toUpperCase().replace("LIGHTNING:", "");
                     if (checkedInvoices.includes(invoice)) {
+                        return;
+                    }
+                    if (weblnEnabled && invoice.startsWith("LNBC")) {
                         return;
                     }
                     debug("Found: " + aTag.href);

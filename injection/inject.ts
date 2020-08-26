@@ -104,10 +104,6 @@ interface PostMessage {
   const checkedInvoices: string[] = [];
   if (window.reactNativeWebLNCheckTags) {
     const checkATags = async () => {
-      if (weblnEnabled) {
-        return;
-      }
-
       const aTags = document.querySelectorAll("a");
       for (const aTag of aTags) {
         if (
@@ -117,6 +113,10 @@ interface PostMessage {
         ) {
           const invoice = aTag.href.toUpperCase().replace("LIGHTNING:", "");
           if (checkedInvoices.includes(invoice)) {
+            return;
+          }
+          // Disable BOLT11 invoices if WebLN is enabled
+          if (weblnEnabled && invoice.startsWith("LNBC")) {
             return;
           }
           debug("Found: " + aTag.href);

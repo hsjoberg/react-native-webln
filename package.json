@@ -4,8 +4,7 @@
   "version": "0.1.8",
   "main": "dist/index",
   "scripts": {
-    "build": "cd injection && tsc && cd .. && echo \"export default \\`$(cat injection/inject.js)\\`\" > lib/inject-txt.ts && rm injection/inject.js && tsc",
-    "publish-npm": "yarn build && yarn publish"
+    "build": "cd injection && tsc && cd .. && echo \"export default \\`$(cat injection/inject.js)\\`\" > lib/inject-txt.ts && rm injection/inject.js && tsc"
   },
   "author": "Hampus Sjöberg",
   "license": "MIT",
