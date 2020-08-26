@@ -91,12 +91,9 @@ exports.default = `(() => {
                 }
             }
         };
-        const check = setInterval(() => {
-            if (weblnEnabled) {
-                clearInterval(check);
-            }
+        setInterval(() => {
             checkATags();
-        }, 900);
+        }, 850);
     }
     const debug = async (message) => {
         if (window.reactNativeWebLNDebug) {

@@ -115,7 +115,8 @@ interface PostMessage {
           if (checkedInvoices.includes(invoice)) {
             return;
           }
-          // Disable BOLT11 invoices if WebLN is enabled
+          // Disable BOLT11 invoices if WebLN is enabled.
+          // LNURL is not affected by this
           if (weblnEnabled && invoice.startsWith("LNBC")) {
             return;
           }
@@ -130,12 +131,9 @@ interface PostMessage {
       }
     }
 
-    const check = setInterval(() => {
-      if (weblnEnabled) {
-        clearInterval(check);
-      }
+    setInterval(() => {
       checkATags();
-    }, 900);
+    }, 850);
   }
 
   const debug = async (message: string) => {
