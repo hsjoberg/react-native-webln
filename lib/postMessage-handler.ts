@@ -15,7 +15,7 @@ const onMessageHandler = (webview: MutableRefObject<WebView>, requests: WebLNPro
   if (!webview.current) {
     console.error(
       "react-native-webln: Reference to webview is not properly set.\n" +
-      "postMessageHandler needs to have a ref to webview in other to work"
+      "postMessageHandler needs to have a ref to webview in order to work"
     );
   }
 
