@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const onMessageHandler = (webview, requests) => async (event) => {
     if (!webview.current) {
         console.error("react-native-webln: Reference to webview is not properly set.\n" +
-            "postMessageHandler needs to have a ref to webview in other to work");
+            "postMessageHandler needs to have a ref to webview in order to work");
     }
     requests.foundInvoice = requests.foundInvoice || (async () => { });
     const request = JSON.parse(event.nativeEvent.data);
@@ -46,11 +46,13 @@ const onMessageHandler = (webview, requests) => async (event) => {
             break;
         }
         case "signMessage": {
-            injectResponseToWebView(webview.current, id, new Error("Not implemented."));
+            const response = await requests.signMessage(request.data);
+            injectResponseToWebView(webview.current, id, JSON.stringify(response));
             break;
         }
         case "verifyMessage": {
-            injectResponseToWebView(webview.current, id, new Error("Not implemented."));
+            const response = await requests.verifyMessage(request.data.signature, request.data.message);
+            injectResponseToWebView(webview.current, id, JSON.stringify(response));
             break;
         }
         case "nonwebln_foundInvoice": {

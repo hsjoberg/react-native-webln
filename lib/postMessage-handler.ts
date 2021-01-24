@@ -61,11 +61,13 @@ const onMessageHandler = (webview: MutableRefObject<WebView>, requests: WebLNPro
       break;
     }
     case "signMessage": {
-      injectResponseToWebView(webview.current, id, new Error("Not implemented."));
+      const response = await requests.signMessage(request.data);
+      injectResponseToWebView(webview.current, id, JSON.stringify(response));
       break;
     }
     case "verifyMessage": {
-      injectResponseToWebView(webview.current, id, new Error("Not implemented."));
+      const response = await requests.verifyMessage(request.data.signature, request.data.message);
+      injectResponseToWebView(webview.current, id, JSON.stringify(response));
       break;
     }
 

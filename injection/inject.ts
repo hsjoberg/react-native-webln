@@ -63,14 +63,20 @@ interface PostMessage {
         data: paymentRequest,
       });
     },
-    signMessage: async () => {
-      return {
-        message: "",
-        signature: "",
-      };
+    signMessage: async (message) => {
+      return await postMessage({
+        type: "signMessage",
+        data: message,
+      });
     },
-    verifyMessage: async () => {
-      return;
+    verifyMessage: async (signature, message) => {
+      return await postMessage({
+        type: "verifyMessage",
+        data: {
+          signature,
+          message,
+        },
+      });
     },
   };
 
