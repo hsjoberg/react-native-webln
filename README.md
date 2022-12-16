@@ -31,7 +31,7 @@ yarn add --dev webln
 # Example
 
 ```tsx
-import { injectJs, postMessageHandler } from "react-native-webln";
+import { injectJs, onMessageHandler } from "react-native-webln";
 
 const WebLNBrowser = () => {
   const webview = useRef<WebView>();
