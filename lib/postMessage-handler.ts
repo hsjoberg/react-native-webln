@@ -39,8 +39,6 @@ const onMessageHandler = (webview: MutableRefObject<WebView>, requests: WebLNPro
       break;
     }
     case "makeInvoice": {
-      console.log("handle makeInvoice");
-
       try {
         const response = await requests.makeInvoice(request.data);
         injectResponseToWebView(webview.current, id, JSON.stringify(response));
@@ -50,8 +48,6 @@ const onMessageHandler = (webview: MutableRefObject<WebView>, requests: WebLNPro
       break;
     }
     case "sendPayment": {
-      console.log("handler sendPayment");
-
       try {
         const response = await requests.sendPayment(request.data);
         injectResponseToWebView(webview.current, id, JSON.stringify(response));
